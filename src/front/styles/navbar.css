@@ -1,0 +1,13 @@
+.btn_comunidad, .btn_recursos, .btn_login, .btn_citas {
+    background: none;
+    border: none;
+    color: #164E63;
+    margin-right: 1rem;
+    
+}
+.navbar-expand-lg {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    background: white;
+    
+}
