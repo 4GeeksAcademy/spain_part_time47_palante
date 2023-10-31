@@ -4,9 +4,16 @@ import "../../styles/lecturas.css";
 import comunicacionjpg from "../../img/comunicacion.jpg";
 import emocionariojpg from "../../img/emocionario.jpg";
 import hijojpg from "../../img/hijo.jpg";
+import cielojpg from "../../img/cielo.jpg";
+import amarjpg from "../../img/amar.jpg";
+import ahorajpg from "../../img/ahora.jpg";
 import emocionario from "../emocionario.pdf";
 import comunicacion from "../emocionario.pdf";
 import hijo from "../hijo.pdf";
+import cielo from "../cielo.pdf";
+import amar from "../amar.pdf";
+import ahora from "../ahora.pdf";
+
 
 
 
@@ -27,7 +34,7 @@ export const Lecturas = () => {
 					</div>
 					<div class="card-footer">
 					<a href={emocionario} download> {' '}
-                Descargar PDF
+                Descargar
               </a>
 					</div>
 					</div>
@@ -41,7 +48,7 @@ export const Lecturas = () => {
 					</div>
 					<div class="card-footer">
 					<a href={hijo} download> {' '}
-                Descargar PDF
+                Descargar
               </a>
 					</div>
 					</div>
@@ -55,44 +62,50 @@ export const Lecturas = () => {
 					</div>
 					<div class="card-footer">
 					<a href={comunicacion} download> {' '}
-                Descargar PDF
+                Descargar
               </a>
 					</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="card h-100">
-					<img src="https://ifeelonline.com/wp-content/uploads/2023/10/miniatura-web-ES.jpg" class="card-img-top" alt="..."></img>
+					<img src={amarjpg} class="card-img-top" alt="..."></img>
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+						<h5 class="card-title">El arte de amar</h5>
+						<p class="card-text">En este libro el filósofo alemán nos explica qué significa amar y cómo desprendernos de nosotros mismos para experimentar ese sentimiento.</p>
 					</div>
 					<div class="card-footer">
-						<small class="text-body-secondary">Last updated 3 mins ago</small>
+					<a href={amar} download> {' '}
+                Descargar
+              </a>
 					</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="card h-100">
-					<img src="..." class="card-img-top" alt="..."></img>
+					<img src={cielojpg} class="card-img-top" alt="..."></img>
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+						<h5 class="card-title">El cielo es el límite</h5>
+						<p class="card-text">Es una obra llena de ingenio, sabiduría y sentido común, para abordar el propio cambio.</p>
 					</div>
 					<div class="card-footer">
-						<small class="text-body-secondary">Last updated 3 mins ago</small>
+					<a href={cielo} download> {' '}
+                Descargar
+              </a>
 					</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="card h-100">
-					<img src="..." class="card-img-top" alt="..."></img>
+					<img src={ahorajpg} class="card-img-top" alt="..."></img>
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+						<h5 class="card-title">El poder del ahora</h5>
+						<p class="card-text">Enseñanzas, meditaciones y ejercicios que te permitirán hacer un camino espiritual.</p>
 					</div>
 					<div class="card-footer">
-						<small class="text-body-secondary">Last updated 3 mins ago</small>
+					<a href={ahora} download> {' '}
+                Descargar
+              </a>
 					</div>
 					</div>
 				</div>
