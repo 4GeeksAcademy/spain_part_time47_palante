@@ -38,13 +38,19 @@ export const Navbar = () => {
 							<Link to='/lecturas'>
 								<li><a className="dropdown-item" href="#">Lecturas</a></li>
 							</Link>
-							<li><a className="dropdown-item" href="#">Meditaciones guiadas</a></li>
-							<li><a className="dropdown-item" href="#">Entrevistas</a></li>
+							<Link to='/meditaciones'>
+								<li><a className="dropdown-item" href="#">Meditaciones guiadas</a></li>
+							</Link>
+							<Link to='/entrevistas'>
+								<li><a className="dropdown-item" href="#">Entrevistas</a></li>
+							</Link>
 							<Link to='/podcast'>
-							<li><a className="dropdown-item" href="#">Podcast</a></li>
+								<li><a className="dropdown-item" href="#">Podcast</a></li>
+							</Link>
+							<Link to='/freelance'>
+								<li><a className="dropdown-item" href="#">De tus Freelance</a></li>
 							</Link>
 							
-							<li><a className="dropdown-item" href="#">De tus Freelance</a></li>
 						</ul>
 					</div>
 					<div className="dropdown">
