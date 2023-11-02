@@ -55,7 +55,7 @@ export const Podcast = () => {
 					<div class="card h-100">
 					<img src={sueño}></img>
 					<div class="card-body">
-						<h5 class="card-title">Apatía: significado, síntomas y causas. Ep.133</h5>
+						<h5 class="card-title">Que nada te quite el sueño</h5>
 						<a href="https://open.spotify.com/episode/0UKoBt2JiqA8j3ugdfL85r">Escuchar</a>
 						
 					</div>
