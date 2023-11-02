@@ -53,22 +53,19 @@ export const Navbar = () => {
 							
 						</ul>
 					</div>
-					<div className="dropdown">
-						<button className="btn_citas dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Citas
+					<div>
+					<Link to="/appointment">
+						<button className="appointment_btn">
+							Schedule Appointment
 						</button>
-						<ul className="dropdown-menu">
-							<li><a className="dropdown-item" href="#">Profesionales</a></li>
-							<li><a className="dropdown-item" href="#">Voluntarios</a></li>
-							
-						</ul>
-					</div>
+					</Link>
+				</div>
 					<div className="login">
-						<Link to='/login'>
-							<button className="btn_login" type="button">
-							Login
-							</button>
-						</Link>
+						
+						<button type="button" className="nav_btn">
+						<i className="fa-regular fa-user"></i> Sign in
+					</button>
+						
 						
 					</div>
 					
