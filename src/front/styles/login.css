@@ -1,0 +1,141 @@
+ 
+  button.user {
+      font-size: 3rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      color: #1FB2A7;
+      background: 0;
+      border: 0;
+  }
+  
+  .login-contenedor {
+        z-index: 999;
+     width: 300px;
+     height: 480px;
+     position: relative;
+     margin: auto;
+     border-radius: 20px;
+     box-shadow: 16px 16px 56px rgba(0, 0, 0, 0.3);
+     background:white;
+     display: flex;
+     flex-direction: column;
+     margin-top: 7rem;
+     
+     }
+     .login-encabezado {
+     
+      border-radius: 20px 20px 0 0;
+      display: flex;
+    }
+    .login-encabezadoSignup {
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      margin-bottom: 3rem;
+  }
+  button.btnRegistrar {
+    margin-left: 28%;
+    padding: 13px 30px;
+    border-radius: 24px;
+    background: #1FB2A7;
+    border: 0;
+    margin-top: 28px;
+    font-size: 20px;
+    color: white;
+  }
+ .acceder {
+    background: rgba(0, 0, 0, 0);
+    color: #265960;
+    font-size: 1.5rem;
+    border: 0;
+    padding: 10px 20px;
+    border-top-left-radius: 20px;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+  .ingresar {
+    border-top-right-radius: 20px;
+    background: #1FB2A7;
+    color: #222;
+    padding: 21px 20px;
+    font-size: 195%;
+    border: 0;
+  }
+  .btnBorrar {
+    margin-left: 25%;
+    padding: 14px 50px;
+    border-radius: 24px;
+    background: #ae0004;
+    border: 0;
+    margin-top: 28px;
+    font-size: 23px;
+    color: white;
+  }
+  .ingresarPrivada {
+    margin-left: 16%;
+    padding: 14px 50px;
+    border-radius: 24px;
+    background: #ae0004;
+    border: 0;
+    margin-top: 28px;
+    font-size: 23px;
+    color: white;
+  }
+  p.permiso {
+    color: white;
+    font-size: 27px;
+    padding: 1rem;
+    border-style: double;
+    width: 71%;
+    margin-left: 3rem;
+    border-radius: 2rem;
+  }
+  .privada {
+    border-top-right-radius: 20px;
+    background: #fffc;
+    color: #222;
+    padding: 20px 16px;
+    font-size: 140%;
+    border: 0;
+  }
+  .bienvenido {
+    color: white;
+    font-size: 3rem;
+    margin-left: 2rem;
+  
+  }
+  .registrarse {
+    border-top-right-radius: 20px;
+    background: #1fb2a7fa;
+    color: white;
+    padding: 21px 20px;
+    font-size: 1.3rem;
+    border: 0;
+}
+  input#email {
+    width: 83%;
+    margin: 10px 20px;
+    border-radius: 25px;
+    padding: 5%;
+    border-style: solid;
+    background: 0;
+  }
+  input#phone {
+    width: 83%;
+    margin: 10px 20px;
+    border-radius: 25px;
+    padding: 5%;
+    border-style: solid;
+    background: 0;
+    margin-top: 2rem;
+  }
+  button.btnSave {
+    margin-left: 19%;
+    padding: 13px 30px;
+    border-radius: 24px;
+    background: #1FB2A7;
+    border: 0;
+    margin-top: 28px;
+    font-size: 20px;
+    color: white;
+  
+  }
