@@ -120,6 +120,7 @@ class Podcast(db.Model):
     __tablename__ = 'podcast'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
+    URLPhoto = db.Column(db.String(200), unique=False, nullable=False)
     URLListen = db.Column(db.String(200), unique=False, nullable=False)
     
     def __repr__(self):
@@ -129,6 +130,8 @@ class Podcast(db.Model):
         return {
             "id": self.id,
             "title": self.title,
+            "URLPhoto": self.URLPhoto,
+            "URLListen": self.URLListen
         }
     
 class Readings(db.Model):
@@ -145,8 +148,10 @@ class Readings(db.Model):
             "id": self.id,
             "title": self.title,
             "review": self.review,
+            "URLPhoto":self.URLPhoto,
+            "download":self.download
         }
-
+    
 class Favorite_Readings(db.Model):
     __tablename__ = 'favorite_readings'
     id = db.Column(db.Integer, primary_key=True)
