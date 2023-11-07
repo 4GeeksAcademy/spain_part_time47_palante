@@ -200,6 +200,74 @@ def delete_meditation(meditation_id):
     db.session.commit()
     return jsonify({'msg':'ok'}), 200
 
+# Podcast
+#endpoint para ver todos los Podcast
+@app.route('/podcast', methods=['GET'])
+def get_podcast():
+    podcast_all = Podcast.query.all()  
+    podcast_list = list(map(lambda podcast: podcast.serialize(), podcast_all))
+    return jsonify(podcast_list), 200
+
+#endpoint para ver cada Podcast
+@app.route('/podcast/<int:podcast_id>', methods=['GET'])
+def get_podcast_id(podcast_id):
+    podcast = Podcast.query.get(podcast_id)
+    if podcast is None:
+        return jsonify({'msg':'Podcast not found'}), 400
+    else:
+        return jsonify({'msg':'ok', 'inf':podcast.serialize()})
+
+#endpoint para agregar Podcast
+@app.route('/podcast', methods=['POST'])
+def create_podcast():
+    body = request.get_json(silent=True)
+    print(body)
+    if body is None:
+        return ({'msg':'Send information in body'})
+    if 'title' not in body:
+        return ({'msg':'Send title in body'})
+    if 'URLListen' is None:
+        return ({'msg':'Send URL in body'})
+    if 'URLPhoto' is None:
+        return ({'msg':'Send URL in body'})
+    
+    # Generar un id aleatorio si no se proporciona
+    id_podcast = random.randint(1, 1000000)
+    
+    new_podcast = Podcast(title=body['title'], URLListen=body['URLListen'], URLPhoto=body['URLPhoto'], id=id_podcast)
+    
+    db.session.add(new_podcast)
+    db.session.commit()
+    return jsonify({'msg': 'ok'}),200
+
+# endpoint para actualizar en la tabla de Podcast
+@app.route('/podcast/<int:podcast_id>', methods=['PUT'])
+def update_podcast(podcast_id):
+    podcast = Podcast.query.get(podcast_id)
+    if podcast is None:
+        return jsonify({'msg': 'The id of podcast:{} does not exist'.format(podcast_id)})
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': 'Send information in the body'}), 400
+    if 'title' in body:
+        podcast.title = body['title']
+    if 'URLListen' in body:
+        podcast.URLListen = body['URLListen']
+    if 'URLPhoto' in body:
+        podcast.URLPhoto = body['URLPhoto']
+    db.session.commit()
+    return jsonify({'msg':'ok'}), 200
+
+#endpoint para eliminar en la tabla de Podcast
+@app.route('/podcast/<int:podcast_id>', methods=['DELETE'])
+def delete_podcast(podcast_id):
+    podcast = Podcast.query.get(podcast_id)
+    if podcast is None:
+        raise APIException({'The id of meditation:{} does not exist'.format(podcast_id)}, status_code=400)
+    db.session.delete(podcast)
+    db.session.commit()
+    return jsonify({'msg':'ok'}), 200
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
