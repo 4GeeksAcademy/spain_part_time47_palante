@@ -10,7 +10,7 @@ class User(db.Model):
     full_name = db.Column(db.String(60), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    URLPhoto = db.Column(db.String(200), unique=False, nullable=True, default=False)
+    URLphoto = db.Column(db.String(200), unique=False, nullable=True, default=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
@@ -21,7 +21,7 @@ class User(db.Model):
             "id": self.id,
             "full_name":self.full_name,
             "email": self.email,
-            "URLPhoto":self.URLPhoto
+            "URLphoto":self.URLpURLPhotohoto
             # do not serialize the password, its a security breach
         }
     
