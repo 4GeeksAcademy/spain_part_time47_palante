@@ -1,26 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
 export const Login = () => {
 	const { store, actions } = useContext(Context);
+  const [register, setRegister] = useState({ email:'', password:''})
 
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
+		<div className="container">
+			<h1>Login</h1>
+			<label for="exampleInputEmail1" class="form-label">Email *</label>
+      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value={register.email} onChange={(e)=>setRegister(e.target.value)} />
+
+      <label for="exampleInputEmail1" class="form-label">Password *</label>
+      <input type="Password" class="form-control" name="Password" id="exampleInputEmail1" aria-describedby="emailHelp" value={register.password} onChange={(e)=>setRegister(e.target.value)} />
+      <br/>
+      <button>Login</button>
 		</div>
 	);
 };
