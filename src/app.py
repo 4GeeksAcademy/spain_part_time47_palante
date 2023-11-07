@@ -122,6 +122,71 @@ def user_private():
     email = get_jwt_identity()
     return jsonify(email = email)
 
+                #########FREELANCERS#########
+
+##### ruta de registro de freelancer #####
+@app.route("/freelancer-register", methods=['POST'])
+def freelancer_register():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify('body must be sent'), 400
+    if 'full_name' not in body:
+        return jsonify('full_name is required'), 400
+    if 'age' not in body:
+        return jsonify('age is required'), 400
+    if 'aboutme' not in body:
+        return jsonify('aboutme is required'), 400
+    if 'email' not in body:
+        return jsonify('email is required'), 400
+    if 'password' not in body:
+        return jsonify('password is required'), 400
+    if 'URLphoto' not in body:
+        return jsonify('URLphoto is required'), 400
+    if 'professional_registration_number' not in body:
+        return jsonify('professional_registration_number is required'), 400
+    if 'years_of_experience' not in body:
+        return jsonify('years_of_experience is required'), 400
+    if 'education' not in body:
+        return jsonify('education is required'), 400
+    if 'expertise' not in body:
+        return jsonify('expertise is required'), 400
+    if 'availability' not in body:
+        return jsonify('availability is required'), 400
+       
+    pw_hash = bcrypt.generate_password_hash(body['password']).decode('utf-8')
+    
+    new_freelancer = Freelancer(full_name=body['full_name'], age=body['age'], email=body['email'], password=pw_hash, 
+    aboutme=body['aboutme'], URLphoto=body['URLphoto'], professional_registration_number=body['professional_registration_number'], years_of_experience =body['years_of_experience'], education=body['education'], expertise=body['expertise'], availability=body['availability'], is_active=True)
+    db.session.add(new_freelancer)
+    db.session.commit()
+    return jsonify('Successful registration'), 200 
+
+##### ruta de inicio de sesion de freelancer #####
+@app.route("/freelancer-login", methods=['POST'])
+def freelancer_token():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify('body must be sent'), 400
+    if 'email' not in body:
+        return jsonify('email is required'), 400
+    if 'password' not in body:
+        return jsonify('password is required'), 400
+    
+    freelancer = Freelancer.query.filter_by(email=body['email']).first()
+    if freelancer is None or freelancer.email != body['email'] or not bcrypt.check_password_hash(freelancer.password, body['password']): #freelancer.password != body['password']: 
+        return jsonify('incorrect email or password'),400
+    
+    ##### aqui se crea un token que debe ser guardado en el front-end con sessionstorage y se utilizara para hacer las peticiones #####
+    access_token = create_access_token(identity=body['email'])
+    return jsonify(access_token=access_token)  
+
+##### ruta privada de freelanecer #####
+@app.route("/freelancer-private", methods=['GET'])
+@jwt_required()
+def freelancer_private():
+    email = get_jwt_identity()
+    return jsonify(email = email)
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
