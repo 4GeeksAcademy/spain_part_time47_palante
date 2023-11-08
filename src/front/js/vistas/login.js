@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState } from "react"; 
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
@@ -6,7 +6,7 @@ import "../../styles/home.css";
 export const Login = () => {
 	const { store, actions } = useContext(Context);
   const [register, setRegister] = useState({ email:'', password:''})
-
+  
 	return (
 		<div className="container">
 			<h1>Login</h1>
