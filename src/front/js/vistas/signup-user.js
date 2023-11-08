@@ -6,13 +6,15 @@ export const Signup_user = () => {
   const { store, actions } = useContext(Context);
   const [register, setRegister] = useState({ full_name: '', email: '', password: '' })
   const [error, setError] = useState('')
+  const [mensaje, setMensaje] = useState('')
+
 
   //La función handleSubmit se encarga de tomar los datos del formulario de registro y los envia al servidor en formato JSON.
   const handleSubmit = (e) => {
     e.preventDefault(); //Previene el comportamiento por defecto del navegador
   
     //Verifica que los campos "email" y "password" esten completos 
-  if (register.full_name.trim() === '' || register.email.trim() === '' || register.password.trim() === '') {      //##### Debo ver como mostras el mensaje al campo vacio 
+  if (register.full_name.trim() === '' || register.email.trim() === '' || register.password.trim() === '') {      
     setError('All fields are mandatory!');
     return;
   }
@@ -48,6 +50,7 @@ export const Signup_user = () => {
         <label for="exampleInputEmail1" class="form-label">Password *</label>
         <input type="Password" className="form-control" name="Password" id="exampleInputEmail1" aria-describedby="emailHelp" value={register.password} onChange={(e) => setRegister({...register,password:e.target.value})} />
         <br />
+        {error && <p>{error}</p>}
         <button>submit</button>
       </form>
     </div>
