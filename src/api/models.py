@@ -192,8 +192,8 @@ class Favorite_Podcast(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user_relationship = db.relationship(User)
-    reading_id = db.Column(db.Integer, db.ForeignKey('podcast.id'))
-    reading_relationship = db.relationship(Podcast)
+    podcast_id = db.Column(db.Integer, db.ForeignKey('podcast.id'))
+    podcast_relationship = db.relationship(Podcast)
 
     def __repr__(self):
         return '< Favorite_Podcast %r>' % self.id    

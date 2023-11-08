@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db, Readings, Meditations, Podcast
+from api.models import db, Readings, Meditations, Podcast, User, Favorite_Meditations, Favorite_Podcast, Favorite_Readings
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
@@ -161,7 +161,7 @@ def create_meditations():
         return ({'msg':'Send information in body'})
     if 'title' not in body:
         return ({'msg':'Send tittle in body'})
-    if 'URLVideo' is None:
+    if 'URLVideo' not in body:
         return ({'msg':'Send URL in body'})
     
     # Generar un id aleatorio si no se proporciona
@@ -226,9 +226,9 @@ def create_podcast():
         return ({'msg':'Send information in body'})
     if 'title' not in body:
         return ({'msg':'Send title in body'})
-    if 'URLListen' is None:
+    if 'URLListen' not in body:
         return ({'msg':'Send URL in body'})
-    if 'URLPhoto' is None:
+    if 'URLPhoto' not in body:
         return ({'msg':'Send URL in body'})
     
     # Generar un id aleatorio si no se proporciona
@@ -267,6 +267,70 @@ def delete_podcast(podcast_id):
     db.session.delete(podcast)
     db.session.commit()
     return jsonify({'msg':'ok'}), 200
+
+
+#endpoint de tablas favorites
+#endpoint para agregar favoritos de readings
+@app.route('/favorite_readings/<int:user_id>', methods=['POST'])
+def create_favorite_readings(user_id):
+    body = request.get_json(silent=True)
+    print(body)
+    if body is None:
+        return jsonify({'msg': 'Send information in the body'}), 400
+    
+    new_favorite_readings = Favorite_Readings(user_id=user_id, reading_id=body['reading_id'])
+    db.session.add(new_favorite_readings)
+    db.session.commit()
+    return jsonify({'msg': 'ok'}),200
+
+#endpoint para agregar favoritos de meditaciones
+@app.route('/favorite_meditations/<int:user_id>', methods=['POST'])
+def create_favorite_meditations(user_id):
+    body = request.get_json(silent=True)
+    print(body)
+    if body is None:
+        return jsonify({'msg': 'Send information in the body'}), 400
+    
+    new_favorite_meditation = Favorite_Meditations(user_id=user_id, meditations_id=body['meditations_id'])
+    db.session.add(new_favorite_meditation)
+    db.session.commit()
+
+    return jsonify({'msg': 'ok'}),200
+
+#endpoint para agregar favoritos de podcast
+@app.route('/favorite_podcast/<int:user_id>', methods=['POST'])
+def create_favorite_podcast(user_id):
+    body = request.get_json(silent=True)
+    print(body)
+    if body is None:
+        return jsonify({'msg': 'Send information in the body'}), 400
+    
+    new_favorite_podcast = Favorite_Podcast(user_id=user_id, podcast_id=body['podcast_id'])
+    db.session.add(new_favorite_podcast)
+    db.session.commit()
+
+    return jsonify({'msg': 'ok'}),200
+
+#endpoint para ver todos los favoritos de un usuario
+@app.route('/user/<int:id_user>/favorites', methods=['GET'])
+def get_favorites_de_user_planet(id_user):
+    favorite_readings = Favorite_Readings.query.filter_by(user_id = id_user)
+    favorite_meditations = Favorite_Meditations.query.filter_by(user_id = id_user)
+    favorite_podcast = Favorite_Podcast.query.filter_by(user_id = id_user)
+    favorites_list = list(map(lambda favorite: favorite.serialize(), favorite_readings))
+    favorites_list_1 = list(map(lambda favorite: favorite.serialize(), favorite_meditations))
+    favorites_list_2 = list(map(lambda favorite: favorite.serialize(), favorite_podcast))
+    favorites_list.extend(favorites_list_1)
+    favorites_list.extend(favorites_list_2)
+    return jsonify({'msg': 'ok', 'inf': favorites_list})
+
+
+#endpoint para ver todos los usuarios de la tabla
+@app.route('/user', methods=['GET'])
+def get_users():
+    users = User.query.all()  
+    user_list = list(map(lambda user: user.serialize(), users))
+    return jsonify(user_list), 200
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
