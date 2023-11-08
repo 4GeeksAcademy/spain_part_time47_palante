@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
+import { Home } from "./vistas/home";
 import { Login } from "./vistas/login";
 import { Signup_user } from "./vistas/signup-user";
 import { Signup_freelancer } from "./vistas/signup-freelance";
@@ -26,7 +27,8 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Login />} path="/" />
+                        <Route element={<Home />} path="/" />
+                        <Route element={<Login />} path="/login" />
                         <Route element={<Signup_user />} path="/signup-user" />
                         <Route element={<Signup_freelancer />} path="/signup-freelance" />
                         <Route element={<h1>Not found!</h1>} />
