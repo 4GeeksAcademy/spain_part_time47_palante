@@ -1,40 +1,40 @@
-import React, { useState, useEffect, useContext } from "react";
-
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
+
+
 export const Signup_user = () => {
-  const { store, actions } = useContext(Context);
-  const [register, setRegister] = useState({ full_name: '', email: '', password: '' })
-  const [error, setError] = useState('')
-  const [mensaje, setMensaje] = useState('')
-
-
-  //La función handleSubmit se encarga de tomar los datos del formulario de registro y los envia al servidor en formato JSON.
+	const { actions } = useContext(Context);
+	const navigate = useNavigate();
+	const [register, setRegister] = useState({full_name:'', email:'', password:''})
+	const [submit, setSubmit] = useState(false);
+	
   const handleSubmit = (e) => {
-    e.preventDefault(); //Previene el comportamiento por defecto del navegador
-  
-    //Verifica que los campos "email" y "password" esten completos 
-  if (register.full_name.trim() === '' || register.email.trim() === '' || register.password.trim() === '') {      
-    setError('All fields are mandatory!');
-    return;
-  }
-  //Envio los datos del formulario a una tabla a traves de un fetch con metodo "post"  
-  fetch(process.env.BACKEND_URL + "/user-register", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(register),
-  })
-  .then(resp => resp.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error))
+		e.preventDefault() //Evitar el comportamiento predeterminado que normalmente ocurre cuando se produce un evento. 
 
-  //Limpia los campos una vez creado el usuario exitosamente, da paso a poder seguir creando registros
-  setRegister({
-   full_name:'', email: '', password: ""
-  });
-}
+		// Condiciona al usuario para completar los campos 
+		if (register.full_name.trim() === "" || register.email.trim() === "" || register.password.trim() === "") {
+			alert("Los campos son requeridos");
+			return; 
+		  }
+		
+		  // Se ejecuta el fetch desde flux para almacenar los datos del usuario en la base de datos 
+		  actions.signupUser(register);
+		  setSubmit(true);
+		}
+	// Si submit es true, muestra un mensaje de confirmación y redirige a login
+	if (submit) {
+		setTimeout(() => {
+		navigate("/login"); // Navigate ejecuta la redireccion a login
+		}, 800);
+
+		return (
+			<div className="container">
+			  <p className="alert alert-success-emphasis">Usuario creado con exito.</p>
+			</div>
+		  );
+		};
 
   return (
     <div className="container">
@@ -50,7 +50,6 @@ export const Signup_user = () => {
         <label for="exampleInputEmail1" class="form-label">Password *</label>
         <input type="Password" className="form-control" name="Password" id="exampleInputEmail1" aria-describedby="emailHelp" value={register.password} onChange={(e) => setRegister({...register,password:e.target.value})} />
         <br />
-        {error && <p>{error}</p>}
         <button>submit</button>
       </form>
     </div>
