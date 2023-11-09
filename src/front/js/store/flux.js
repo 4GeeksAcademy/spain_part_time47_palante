@@ -17,9 +17,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-
+			
+			//Envio usuario a la base de datos
 			signupUser: (user) => {
-				
 				fetch(process.env.BACKEND_URL + "/user-register", {
 				method: "POST",
 				body: JSON.stringify(user),
@@ -39,32 +39,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			},
 			
-
+			//Inicio de sesion del usuario
 			loginUser: async (body) => {
-				const resp = await fetch(process.env.BACKEND_URL + "/login", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(body)
-				})
-
-				if (!resp.ok) throw Error("Hubo un problema en la solicitud de inicio de sesión.")
-
-				if (resp.status === 401) {
-					throw ("Credenciales no válidas")
-				}
-				else if (resp.status === 400) {
-					throw ("Correo electrónico o contraseña no válido")
-				}
-				const data = await resp.json()
-				// save your token in the localStorage
-				//also you should set your user into the store using the setStore function
-				sessionStorage.setItem("token", data.token);
-				console.log("token", data.token)
-
-				return data
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/login", {
+					  method: "POST",
+					  headers: { "Content-Type": "application/json" },
+					  body: JSON.stringify(body)
+					});
+				  
+					if (!resp.ok) {
+					  throw Error("Hubo un problema en la solicitud de inicio de sesión.");
+					}
+				  
+					if (resp.status === 401) {
+					  throw new Error("Credenciales no válidas");
+					} else if (resp.status === 400) {
+					  throw new Error("Correo electrónico o contraseña no válido");
+					}
+				  
+					const data = await resp.json();
+					
+					sessionStorage.setItem("token", data.token); // Guarda el token en el almacenamiento 
+					console.log("token", data.token);
+				  
+					return data;
+				  } catch (error) {
+					console.error("Error al iniciar sesión:");
+					throw error;
+				  }
 			},
 
-			loginPrivate: async (body) => {
+			//Ejecuta para redirigir a una pagina privada (solo se accede si estas logeado)
+			loginPrivate: async () => {
 				const token = sessionStorage.getItem('token');
 
 				const resp = await fetch(process.env.BACKEND_URL + "/private", {
@@ -86,6 +93,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return data
 
 			},
+
+			//Cierre de sesion
 			borrarToken: () => {
 				sessionStorage.removeItem('token');
 				alert('Te has desconectado de la aplicacion')
