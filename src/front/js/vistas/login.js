@@ -11,19 +11,19 @@ export const Login = () => {
   const [submitted, setSubmitted] = useState(false);
   
   const handleSubmit = (e) => {
-		e.preventDefault()
-		// Verifica si los campos obligatorios están llenos
+		e.preventDefault() //Evitar el comportamiento predeterminado que normalmente ocurre cuando se produce un evento. 
+		
+		// Condiciona al usuario para completar los campos
 		if (user.email.trim() === "" || user.password.trim() === "") {
-			// Muestra una alerta o mensaje de error al usuario indicando que debe llenar todos los campos
 			alert("Rellene los campos requeridos.");
-			return; // Sale de la función sin continuar
+			return;
 		  }
 		
-		  // Si todos los campos están llenos, llama a actions.guardarInputs
+		  // Se ejecuta el fetch desde flux para verifica al usuario e iniciar sesion
 		  actions.loginUser(user);
 		  setSubmitted(true);
 		}
-	// Si submitted es true, muestra un mensaje de confirmación y redirige después de un breve retraso
+	// Si submit es true, muestra un mensaje de confirmación y redirige a home
 	if (submitted) {
     actions.loginPrivate(user)
 		setTimeout(() => {
